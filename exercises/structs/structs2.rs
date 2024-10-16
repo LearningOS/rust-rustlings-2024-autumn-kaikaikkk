@@ -5,8 +5,6 @@
 // Execute `rustlings hint structs2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[derive(Debug)]
 struct Order {
     name: String,
@@ -16,7 +14,6 @@ struct Order {
     made_by_email: bool,
     item_number: u32,
     count: u32,
-    price: f32,
 }
 
 fn create_order_template() -> Order {
@@ -28,7 +25,6 @@ fn create_order_template() -> Order {
         made_by_email: true,
         item_number: 123,
         count: 0,
-        price: 0.0
     }
 }
 
@@ -48,7 +44,6 @@ mod tests {
             made_by_email: order_template.made_by_email,
             item_number: order_template.item_number,
             count: 1,
-            price: 99.99, 
         };
         assert_eq!(your_order.name, "Hacker in Rust");
         assert_eq!(your_order.year, order_template.year);
@@ -57,6 +52,5 @@ mod tests {
         assert_eq!(your_order.made_by_email, order_template.made_by_email);
         assert_eq!(your_order.item_number, order_template.item_number);
         assert_eq!(your_order.count, 1);
-        assert_eq!(your_order.price, 99.99);
     }
 }
