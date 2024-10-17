@@ -34,31 +34,29 @@
 // Execute `rustlings hint tests7` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 fn main() {
-    // 获取环境变量 TEST_FOO 的值
-    let test_foo = env::var("TEST_FOO").expect("TEST_FOO environment variable not found");
-
-    // 获取当前时间戳
     let timestamp = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .expect("Time went backwards")
         .as_secs();
+    println!("cargo:rustc-env=TEST_FOO={}", timestamp);
+}
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_success() {
+        // 获取当前时间戳
+        let timestamp = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .expect("Time went backwards")
+            .as_secs();
+        // 使用 cfg! 宏读取编译时配置的时间戳
+        let e: u64 = std::env::var("TEST_FOO").expect("TEST_FOO is not set").parse().expect("Failed to parse TEST_FOO");
 
-    // 将环境变量的值解析为 u64
-    let test_foo_value: u64 = test_foo.parse().expect("TEST_FOO is not a number");
-
-    // 检查 TEST_FOO 的值是否在当前时间戳的前后10秒内
-    if timestamp >= test_foo_value && timestamp < test_foo_value + 10 {
-        // 如果是，输出正确的格式
-        println!("cargo:rustc-env=TEST_FOO={}", test_foo_value);
-    } else {
-        // 如果不是，输出错误信息并退出
-        println!("cargo:warning=TEST_FOO value is not within the expected range");
-        std::process::exit(1);
+        assert!(timestamp >= e && timestamp < e + 10);
     }
 }
