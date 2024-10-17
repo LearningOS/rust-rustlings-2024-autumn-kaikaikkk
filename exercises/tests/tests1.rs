@@ -10,12 +10,15 @@
 // Execute `rustlings hint tests1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[cfg(test)]
 mod tests {
     #[test]
     fn you_can_assert() {
-        assert!(a,b);
+        // 假设我们想测试两个值 a 和 b 是否相等
+        let a = 3;
+        let b = 3;
+        
+        // 使用 assert_eq! 宏来断言 a 和 b 相等
+        assert_eq!(a, b);
     }
 }
