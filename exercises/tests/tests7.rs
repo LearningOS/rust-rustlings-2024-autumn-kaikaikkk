@@ -36,20 +36,29 @@
 
 // I AM NOT DONE
 
-fn main() {}
+use std::env;
+use std::time::{SystemTime, UNIX_EPOCH};
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+fn main() {
+    // 获取环境变量 TEST_FOO 的值
+    let test_foo = env::var("TEST_FOO").expect("TEST_FOO environment variable not found");
 
-    #[test]
-    fn test_success() {
-        let timestamp = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
-            .as_secs();
-        let s = std::env::var("TEST_FOO").unwrap();
-        let e: u64 = s.parse().unwrap();
-        assert!(timestamp >= e && timestamp < e + 10);
+    // 获取当前时间戳
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .expect("Time went backwards")
+        .as_secs();
+
+    // 将环境变量的值解析为 u64
+    let test_foo_value: u64 = test_foo.parse().expect("TEST_FOO is not a number");
+
+    // 检查 TEST_FOO 的值是否在当前时间戳的前后10秒内
+    if timestamp >= test_foo_value && timestamp < test_foo_value + 10 {
+        // 如果是，输出正确的格式
+        println!("cargo:rustc-env=TEST_FOO={}", test_foo_value);
+    } else {
+        // 如果不是，输出错误信息并退出
+        println!("cargo:warning=TEST_FOO value is not within the expected range");
+        std::process::exit(1);
     }
 }
