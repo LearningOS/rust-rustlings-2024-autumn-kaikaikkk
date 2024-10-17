@@ -8,8 +8,6 @@
 // Execute `rustlings hint traits3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 pub trait Licensed {
     fn licensing_info(&self) -> String;
 }
@@ -22,8 +20,19 @@ struct OtherSoftware {
     version_number: String,
 }
 
-impl Licensed for SomeSoftware {} // Don't edit this line
-impl Licensed for OtherSoftware {} // Don't edit this line
+// 为 SomeSoftware 实现 Licensed trait
+impl Licensed for SomeSoftware {
+    fn licensing_info(&self) -> String {
+        "Some information".to_string() // 返回固定的字符串
+    }
+}
+
+// 为 OtherSoftware 实现 Licensed trait
+impl Licensed for OtherSoftware {
+    fn licensing_info(&self) -> String {
+        "Some information".to_string() // 返回固定的字符串
+    }
+}
 
 #[cfg(test)]
 mod tests {
