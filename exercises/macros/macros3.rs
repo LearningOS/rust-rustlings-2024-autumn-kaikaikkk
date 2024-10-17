@@ -5,16 +5,19 @@
 // Execute `rustlings hint macros3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+
+// 定义宏
+macro_rules! my_macro {
+    () => {
+        println!("Check out my macro!");
+    };
+}
 
 mod macros {
-    macro_rules! my_macro {
-        () => {
-            println!("Check out my macro!");
-        };
-    }
+    // 模块内部也可以使用外部定义的宏
 }
 
 fn main() {
+    // 在 main 函数中调用宏
     my_macro!();
 }
